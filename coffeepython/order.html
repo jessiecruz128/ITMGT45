@@ -1,0 +1,179 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <div style="display: flex; align-items: center;">
+        <img src="Logo.png" alt="Logo" style="height: 80; margin-right: 10px;">
+        <span><h1>Digital Espresso</h1></span>
+    </div>
+    <style>
+        h1 {
+            color: rgb(225, 191, 188);
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            color: #d4af91;
+            text-align: center;
+            background-color: rgb(38, 0, 0);
+            margin-top: 20px;
+            margin-left: 40px;
+        }
+        form {
+            max-width: 400px;
+            margin: auto;
+            background-color: rgb(38, 0, 0);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: left;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        .product {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start; 
+            margin-bottom: 10px;
+        }
+        .product span {
+            flex-grow: 1;
+        }
+        .quantity {
+            width: 60px;
+            text-align: center;
+            margin-left: 10px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: none;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #8b4513;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+        }
+        button:hover {
+            background-color: #a0522d;
+        }
+        #addressField, #pickupLocation {
+            display: none;
+        }
+        #thankYouMessage {
+            display: none;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            background-color: rgb(38, 0, 0);
+            color: #d4af91;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr><td><a href="home.html">Home</td><td><a href="about.html">About Us</td><td><a href="products.html">Products</td><td><a href="branches.html">Branches</td><td><a href="order.html">Order Now</td></tr>
+    </table>
+
+    <h2>Order Form</h2>
+    
+    <form id="orderForm">
+        <label>Full Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label>Select Coffee & Quantity:</label>
+        <div class="product">
+            <span>Americano - 125</span>
+            <input type="number" name="quantity" class="quantity" required>
+        </div>
+        <div class="product">
+            <span>Brewed Coffee - 100</span>
+            <input type="number" name="quantity" class="quantity" required>
+        </div>
+        <div class="product">
+            <span>Cappuccino - 140</span>
+            <input type="number" name="quantity" class="quantity" required>
+        </div>
+        <div class="product">
+            <span>Dalgona - 120</span>
+            <input type="number" name="quantity" class="quantity" required>
+        </div>
+        <div class="product">
+            <span>Espresso - 120</span>
+            <input type="number" name="quantity" class="quantity" required>
+        </div>
+        <div class="product">
+            <span>Frappuccino - 200</span>
+            <input type="number" name="quantity" class="quantity" required>
+        </div>
+
+        <label>Pickup or Delivery:</label>
+        <select id="pickup" name="pickup" required onchange="toggleLocationField()">
+            <option value="">Select Option</option>
+            <option value="Pickup">Pickup</option>
+            <option value="Delivery">Delivery</option>
+        </select>
+
+        <div id="pickupLocation">
+            <label for="location">Select Pickup Location:</label>
+            <select id="location" name="location">
+                <option value="BGC">BGC</option>
+                <option value="Makati">Makati</option>
+                <option value="Quezon City">Quezon City</option>
+            </select>
+        </div>
+
+        <div id="addressField">
+            <label for="address">Delivery Address:</label>
+            <textarea id="address" name="address" rows="3"></textarea>
+        </div>
+
+        <button type="submit">Place Order</button>
+    </form>
+
+    <p id="thankYouMessage">
+    Thank you for your order! We’ll process it shortly.
+    </p>
+
+    <script>
+        function toggleLocationField() {
+            var selection = document.getElementById("pickup").value;
+            var addressField = document.getElementById("addressField");
+            var pickupLocation = document.getElementById("pickupLocation");
+
+            if (selection === "Delivery") {
+                addressField.style.display = "block";
+                pickupLocation.style.display = "none";
+                document.getElementById("address").setAttribute("required", "true");
+                document.getElementById("location").removeAttribute("required");
+            } else if (selection === "Pickup") {
+                pickupLocation.style.display = "block";
+                addressField.style.display = "none";
+                document.getElementById("address").removeAttribute("required");
+                document.getElementById("location").setAttribute("required", "true");
+            } else {
+                addressField.style.display = "none";
+                pickupLocation.style.display = "none";
+                document.getElementById("address").removeAttribute("required");
+                document.getElementById("location").removeAttribute("required");
+            }
+        }
+
+        document.getElementById("orderForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            document.getElementById("orderForm").style.display = "none";
+            document.getElementById("thankYouMessage").style.display = "block";
+        });
+    </script>
+
+</body>
+</html>
